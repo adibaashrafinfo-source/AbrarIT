@@ -40,9 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <li><a href="digital-marketing-agency-bangladesh.html">Digital Marketing</a></li>
               <li><a href="web-design-bangladesh.html">Website Design</a></li>
               <li><a href="software-development-company-bangladesh.html">Software Solutions</a></li>
-              <li><a href="services.html#motion">Motion Graphics</a></li>
-              <li><a href="services.html#video">Video Editing</a></li>
-              <li><a href="services.html#email">Email &amp; SMS Marketing</a></li>
+              <li><a href="motion-graphics-bangladesh.html">Motion Graphics</a></li>
+              <li><a href="video-editing-services-bangladesh.html">Video Editing</a></li>
+              <li><a href="content-writing-services-bangladesh.html">Content Writing</a></li>
+              <li><a href="email-sms-marketing-bangladesh.html">Email &amp; SMS Marketing</a></li>
             </ul>
           </div>
 
