@@ -36,10 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="footer-col">
             <h4>Services</h4>
             <ul>
-              <li><a href="services.html#graphic-design">Graphic Design</a></li>
-              <li><a href="services.html#digital-marketing">Digital Marketing</a></li>
-              <li><a href="services.html#web-design">Website Design</a></li>
-              <li><a href="services.html#software">Software Solutions</a></li>
+              <li><a href="graphic-design-agency-bangladesh.html">Graphic Design</a></li>
+              <li><a href="digital-marketing-agency-bangladesh.html">Digital Marketing</a></li>
+              <li><a href="web-design-bangladesh.html">Website Design</a></li>
+              <li><a href="software-development-company-bangladesh.html">Software Solutions</a></li>
               <li><a href="services.html#motion">Motion Graphics</a></li>
               <li><a href="services.html#video">Video Editing</a></li>
               <li><a href="services.html#email">Email &amp; SMS Marketing</a></li>
