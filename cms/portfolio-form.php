@@ -4,7 +4,7 @@ require_login();
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 $item = [
-    'title' => '', 'category' => 'Branding', 'description' => '', 'thumb_label' => '',
+    'title' => '', 'category' => 'Branding', 'description' => '', 'thumb_label' => '', 'project_url' => '',
     'cover_gradient_start' => '#F15922', 'cover_gradient_end' => '#1A1715', 'sort_order' => 0, 'status' => 'published',
 ];
 
@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'category' => trim((string) ($_POST['category'] ?? '')) ?: 'Branding',
         'description' => trim((string) ($_POST['description'] ?? '')),
         'thumb_label' => trim((string) ($_POST['thumb_label'] ?? '')),
+        'project_url' => trim((string) ($_POST['project_url'] ?? '')),
         'cover_gradient_start' => (string) ($_POST['cover_gradient_start'] ?? '#F15922'),
         'cover_gradient_end' => (string) ($_POST['cover_gradient_end'] ?? '#1A1715'),
         'sort_order' => (int) ($_POST['sort_order'] ?? 0),
@@ -37,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($item['title'] === '') {
         $errors[] = 'Title is required.';
     }
+    if ($item['project_url'] !== '' && !filter_var($item['project_url'], FILTER_VALIDATE_URL)) {
+        $errors[] = 'Live Site URL must be a valid URL (e.g. https://example.com).';
+    }
     if ($item['thumb_label'] === '') {
         $item['thumb_label'] = mb_substr($item['title'], 0, 12);
     }
@@ -44,20 +48,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         if ($id) {
             $stmt = db()->prepare('UPDATE portfolio_items SET title=:title, category=:category, description=:description,
-                thumb_label=:thumb_label, cover_gradient_start=:cgs, cover_gradient_end=:cge, sort_order=:sort_order, status=:status
+                thumb_label=:thumb_label, project_url=:project_url, cover_gradient_start=:cgs, cover_gradient_end=:cge, sort_order=:sort_order, status=:status
                 WHERE id=:id');
             $stmt->execute([
                 'title' => $item['title'], 'category' => $item['category'], 'description' => $item['description'],
-                'thumb_label' => $item['thumb_label'], 'cgs' => $item['cover_gradient_start'], 'cge' => $item['cover_gradient_end'],
+                'thumb_label' => $item['thumb_label'], 'project_url' => $item['project_url'],
+                'cgs' => $item['cover_gradient_start'], 'cge' => $item['cover_gradient_end'],
                 'sort_order' => $item['sort_order'], 'status' => $item['status'], 'id' => $id,
             ]);
             flash_set('Portfolio item updated.');
         } else {
-            $stmt = db()->prepare('INSERT INTO portfolio_items (title, category, description, thumb_label, cover_gradient_start, cover_gradient_end, sort_order, status)
-                VALUES (:title, :category, :description, :thumb_label, :cgs, :cge, :sort_order, :status)');
+            $stmt = db()->prepare('INSERT INTO portfolio_items (title, category, description, thumb_label, project_url, cover_gradient_start, cover_gradient_end, sort_order, status)
+                VALUES (:title, :category, :description, :thumb_label, :project_url, :cgs, :cge, :sort_order, :status)');
             $stmt->execute([
                 'title' => $item['title'], 'category' => $item['category'], 'description' => $item['description'],
-                'thumb_label' => $item['thumb_label'], 'cgs' => $item['cover_gradient_start'], 'cge' => $item['cover_gradient_end'],
+                'thumb_label' => $item['thumb_label'], 'project_url' => $item['project_url'],
+                'cgs' => $item['cover_gradient_start'], 'cge' => $item['cover_gradient_end'],
                 'sort_order' => $item['sort_order'], 'status' => $item['status'],
             ]);
             flash_set('Portfolio item created.');
@@ -95,6 +101,11 @@ require __DIR__ . '/includes/layout_start.php';
     <div class="field">
       <label>Description</label>
       <textarea name="description" style="min-height:90px;"><?= e($item['description']) ?></textarea>
+    </div>
+    <div class="field">
+      <label>Live Site URL (optional)</label>
+      <input type="url" name="project_url" value="<?= e($item['project_url']) ?>" placeholder="https://clientsite.com">
+      <div class="field-hint">If set, the card on the website links out to this site in a new tab with a "Live Preview" badge.</div>
     </div>
     <div class="field-row">
       <div class="field">

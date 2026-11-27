@@ -57,15 +57,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (portfolioGrid) {
     const items = await fetchJson('portfolio');
     if (items && items.length) {
-      portfolioGrid.innerHTML = items.map((p) => `
-        <div class="portfolio-card reveal" data-category="${slugify(p.category)}">
+      portfolioGrid.innerHTML = items.map((p) => {
+        const hasUrl = !!p.project_url;
+        const tag = hasUrl ? 'a' : 'div';
+        const linkAttrs = hasUrl ? `href="${escapeHtml(p.project_url)}" target="_blank" rel="noopener noreferrer"` : '';
+        const liveBadge = hasUrl
+          ? '<span class="live-badge">Live Preview <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17L17 7M8 7h9v9"/></svg></span>'
+          : '';
+        return `
+        <${tag} ${linkAttrs} class="portfolio-card reveal" data-category="${slugify(p.category)}">
           <div class="portfolio-thumb" style="background:linear-gradient(135deg,${p.cover_gradient_start},${p.cover_gradient_end})">
             <span class="tag">${escapeHtml(p.category)}</span>
             <span class="mark">${escapeHtml(p.thumb_label)}</span>
+            ${liveBadge}
           </div>
           <div class="portfolio-body"><h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.description)}</p></div>
-        </div>
-      `).join('');
+        </${tag}>`;
+      }).join('');
       window.observeReveals(portfolioGrid);
 
       const filterBar = document.getElementById('cms-filter-bar');

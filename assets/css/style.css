@@ -408,6 +408,15 @@ h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; line-height:1.15;
 .portfolio-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow-lg); }
 .portfolio-thumb{ aspect-ratio:4/3; position:relative; display:grid; place-items:center; color:#fff; overflow:hidden; }
 .portfolio-thumb span.tag{ position:absolute; top:16px; left:16px; background:rgba(255,255,255,.92); color:var(--color-primary); font-size:.72rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:6px 14px; border-radius:var(--radius-pill); }
+.live-badge{
+  position:absolute; bottom:16px; right:16px; display:flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,.95); color:var(--color-primary); font-size:.76rem; font-weight:800;
+  padding:8px 14px; border-radius:var(--radius-pill); box-shadow:var(--shadow-md);
+  opacity:0; transform:translateY(8px); transition:opacity .3s var(--ease), transform .3s var(--ease);
+}
+.live-badge svg{ width:14px; height:14px; }
+.portfolio-card:hover .live-badge{ opacity:1; transform:translateY(0); }
+a.portfolio-card{ display:block; cursor:pointer; }
 .portfolio-thumb .mark{ font-family:var(--font-display); font-size:2.4rem; opacity:.85; }
 .portfolio-body{ padding:26px 24px; }
 .portfolio-body h3{ font-size:1.08rem; margin-bottom:8px; }

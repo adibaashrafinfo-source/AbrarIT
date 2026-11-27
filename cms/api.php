@@ -50,7 +50,7 @@ try {
                 break;
 
             case 'portfolio':
-                $rows = db()->query("SELECT title, category, description, thumb_label, cover_gradient_start, cover_gradient_end
+                $rows = db()->query("SELECT title, category, description, thumb_label, project_url, cover_gradient_start, cover_gradient_end
                     FROM portfolio_items WHERE status = 'published' ORDER BY sort_order ASC")->fetchAll();
                 json_out(['ok' => true, 'data' => $rows]);
                 break;
