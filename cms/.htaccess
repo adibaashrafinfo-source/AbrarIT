@@ -1,0 +1,12 @@
+# Abrar IT CMS — Apache hardening (shared hosting / cPanel)
+
+# Never serve the schema, docs, or sample config directly.
+<FilesMatch "\.(sql|md)$">
+  Require all denied
+</FilesMatch>
+<Files "config.sample.php">
+  Require all denied
+</Files>
+
+# Don't leak PHP errors/warnings to visitors in production.
+php_flag display_errors off

@@ -65,7 +65,7 @@
 
 <section class="section">
   <div class="container">
-    <div class="filter-bar">
+    <div class="filter-bar" id="cms-filter-bar">
       <button class="filter-btn active" data-filter="all">All Work</button>
       <button class="filter-btn" data-filter="branding">Branding</button>
       <button class="filter-btn" data-filter="web">Web Design</button>
@@ -74,7 +74,7 @@
       <button class="filter-btn" data-filter="motion">Motion &amp; Video</button>
     </div>
 
-    <div class="grid portfolio-grid" data-stagger>
+    <div class="grid portfolio-grid" id="cms-portfolio-grid" data-stagger>
       <div class="portfolio-card reveal" data-category="branding">
         <div class="portfolio-thumb" style="background:linear-gradient(135deg,#F15922,#1A1715)"><span class="tag">Branding</span><span class="mark">Nova</span></div>
         <div class="portfolio-body"><h3>Nova Retail — Brand Identity</h3><p>Full visual identity and packaging suite for a lifestyle retail brand.</p></div>
@@ -143,7 +143,9 @@
 
 <footer class="site-footer" id="footer-placeholder"></footer>
 
+<script src="assets/js/cms-config.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/cms-render.js"></script>
 <script src="assets/js/footer.js"></script>
 </body>
 </html>

@@ -71,20 +71,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---- Scroll reveal via IntersectionObserver ---- */
-  const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('in'));
-  }
+  const revealIO = ('IntersectionObserver' in window)
+    ? new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            revealIO.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' })
+    : null;
+
+  window.observeReveals = function observeReveals(root = document) {
+    const els = root.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+    els.forEach(el => (revealIO ? revealIO.observe(el) : el.classList.add('in')));
+  };
+  window.observeReveals();
 
   /* ---- Animated counters ---- */
   const counters = document.querySelectorAll('[data-count]');
@@ -159,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---- Portfolio / grid filter ---- */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  if (filterBtns.length) {
+  window.bindPortfolioFilters = function bindPortfolioFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
@@ -172,18 +174,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-  }
+  };
+  window.bindPortfolioFilters();
 
-  /* ---- Contact form (static demo submit) ---- */
+  /* ---- Contact form: posts to the CMS backend (see assets/js/cms-config.js) ---- */
   const contactForm = document.querySelector('#contact-form');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    const note = document.querySelector('#contact-form-note');
+    const showNote = (text) => {
+      if (!note) return;
+      note.textContent = text;
+      note.style.display = 'block';
+    };
+
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = contactForm.querySelector('button[type="submit"]');
       const original = btn.innerHTML;
-      btn.innerHTML = 'Message Sent ✓';
-      contactForm.reset();
-      setTimeout(() => { btn.innerHTML = original; }, 2800);
+      if (note) note.style.display = 'none';
+
+      const apiBase = window.CMS_API_BASE;
+      if (!apiBase) {
+        showNote("This form isn't connected to a backend yet. Once the admin panel is deployed (see cms/README.md) and assets/js/cms-config.js is set, messages sent here will reach the admin inbox. In the meantime, reach us directly via WhatsApp or email below.");
+        return;
+      }
+
+      const payload = Object.fromEntries(new FormData(contactForm).entries());
+      btn.disabled = true;
+      btn.innerHTML = 'Sending…';
+
+      try {
+        const res = await fetch(apiBase.replace(/\/$/, '') + '/api.php?resource=contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json().catch(() => ({ ok: false }));
+
+        if (res.ok && data.ok) {
+          btn.innerHTML = 'Message Sent ✓';
+          contactForm.reset();
+          setTimeout(() => { btn.innerHTML = original; }, 3200);
+        } else {
+          btn.innerHTML = original;
+          showNote((data.errors && data.errors.join(' ')) || 'Something went wrong sending your message. Please try again.');
+        }
+      } catch (err) {
+        btn.innerHTML = original;
+        showNote('Could not reach the server. Please check your connection and try again.');
+      } finally {
+        btn.disabled = false;
+      }
     });
   }
 
