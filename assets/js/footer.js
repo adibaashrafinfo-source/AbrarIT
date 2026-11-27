@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="index.html" class="brand">
-              <img src="assets/img/logo.png" alt="Abrar IT — Your Journey To Digital Excellence" class="brand-logo">
+              <img src="assets/img/logo.png" alt="Abrar IT — Your Journey To Digital Excellence" class="brand-logo" width="178" height="50">
             </a>
             <p>Your trusted partner for premium branding, web design, software and growth marketing that builds lasting digital success.</p>
             <div class="footer-social">
