@@ -38,6 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---- Hero parallax blobs (fine-pointer, motion-ok devices only) ---- */
+  const heroSection = document.querySelector('.hero');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+  if (heroSection && !prefersReducedMotion && hasFinePointer) {
+    const blobs = heroSection.querySelectorAll('.hero-blob');
+    heroSection.addEventListener('mousemove', (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 2;
+      const y = (e.clientY / innerHeight - 0.5) * 2;
+      blobs.forEach((blob, i) => {
+        const strength = i === 0 ? 18 : -14;
+        blob.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+      });
+    });
+  }
+
   /* ---- Back to top ---- */
   const backTop = document.querySelector('.back-to-top');
   if (backTop) {
