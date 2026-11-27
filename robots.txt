@@ -1,0 +1,42 @@
+# Abrar IT — robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /cms/
+
+# AI assistants / answer engines — allowed so Abrar IT can be cited in
+# AI-generated answers (ChatGPT, Claude, Perplexity, Gemini, Copilot).
+User-agent: GPTBot
+Allow: /
+Disallow: /cms/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /cms/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /cms/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /cms/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /cms/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /cms/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /cms/
+
+# Training-only crawler — blocked (does not affect citation in any
+# assistant above, only bulk dataset scraping).
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://abrar-it.vercel.app/sitemap.xml

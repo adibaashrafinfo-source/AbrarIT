@@ -11,6 +11,7 @@ $flash = flash_get();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title><?= e($pageTitle ?? 'Admin') ?> — Abrar IT CMS</title>
 <link rel="icon" href="../assets/img/logo.png" type="image/png">
 <link rel="stylesheet" href="assets/admin.css">
