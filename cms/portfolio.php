@@ -32,7 +32,7 @@ require __DIR__ . '/includes/layout_start.php';
       <tbody>
         <?php foreach ($items as $p): ?>
           <tr>
-            <td><strong><?= e($p['title']) ?></strong><?php if ($p['project_url']): ?><br><a href="<?= e($p['project_url']) ?>" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--c-ink-faint);">↗ live site</a><?php endif; ?></td>
+            <td><strong><?= e($p['title']) ?></strong><?php if (is_safe_http_url($p['project_url'])): ?><br><a href="<?= e($p['project_url']) ?>" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--c-ink-faint);">↗ live site</a><?php endif; ?></td>
             <td><?= e($p['category']) ?></td>
             <td><span class="badge badge-<?= e($p['status']) ?>"><?= e(ucfirst($p['status'])) ?></span></td>
             <td><?= (int) $p['sort_order'] ?></td>

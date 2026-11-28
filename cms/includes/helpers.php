@@ -7,6 +7,16 @@ function e(?string $value): string
     return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
 }
 
+/** True only for http:// or https:// URLs — rejects javascript:, data: etc. before use in an href. */
+function is_safe_http_url(?string $value): bool
+{
+    if (!$value) {
+        return false;
+    }
+    $scheme = strtolower((string) parse_url($value, PHP_URL_SCHEME));
+    return in_array($scheme, ['http', 'https'], true) && filter_var($value, FILTER_VALIDATE_URL) !== false;
+}
+
 function redirect(string $path): void
 {
     header('Location: ' . $path);

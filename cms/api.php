@@ -49,6 +49,21 @@ try {
                 json_out(['ok' => true, 'data' => $rows]);
                 break;
 
+            case 'blog-post':
+                $slug = (string) ($_GET['slug'] ?? '');
+                if ($slug === '') {
+                    json_out(['ok' => false, 'error' => 'Missing slug.'], 400);
+                }
+                $stmt = db()->prepare("SELECT title, slug, category, excerpt, content, cover_gradient_start, cover_gradient_end, published_at
+                    FROM blog_posts WHERE slug = :slug AND status = 'published' LIMIT 1");
+                $stmt->execute(['slug' => $slug]);
+                $post = $stmt->fetch();
+                if (!$post) {
+                    json_out(['ok' => false, 'error' => 'Not found.'], 404);
+                }
+                json_out(['ok' => true, 'data' => $post]);
+                break;
+
             case 'portfolio':
                 $rows = db()->query("SELECT title, category, description, thumb_label, project_url, cover_gradient_start, cover_gradient_end
                     FROM portfolio_items WHERE status = 'published' ORDER BY sort_order ASC")->fetchAll();

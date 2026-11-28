@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($item['title'] === '') {
         $errors[] = 'Title is required.';
     }
-    if ($item['project_url'] !== '' && !filter_var($item['project_url'], FILTER_VALIDATE_URL)) {
-        $errors[] = 'Live Site URL must be a valid URL (e.g. https://example.com).';
+    if ($item['project_url'] !== '' && !is_safe_http_url($item['project_url'])) {
+        $errors[] = 'Live Site URL must be a valid http:// or https:// web address.';
     }
     if ($item['thumb_label'] === '') {
         $item['thumb_label'] = mb_substr($item['title'], 0, 12);

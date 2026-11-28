@@ -95,14 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const nb = mount.querySelector('.newsletter-box');
   if (nb) {
-    const btn = nb.querySelector('button');
-    const input = nb.querySelector('input');
-    btn.addEventListener('click', () => {
-      if (input.value.trim()) {
-        input.value = '';
-        input.placeholder = 'Subscribed! Thank you.';
-        setTimeout(() => (input.placeholder = 'Your email address'), 3000);
-      }
-    });
+    window.bindNewsletterBox(nb);
   }
 });

@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---- Newsletter (static demo submit) ---- */
-  document.querySelectorAll('.newsletter-box').forEach(box => {
+  window.bindNewsletterBox = function bindNewsletterBox(box) {
     const btn = box.querySelector('button');
     const input = box.querySelector('input');
     btn.addEventListener('click', () => {
@@ -239,5 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => (input.placeholder = 'Your email address'), 3000);
       }
     });
-  });
+  };
+  document.querySelectorAll('.newsletter-box').forEach(window.bindNewsletterBox);
 });

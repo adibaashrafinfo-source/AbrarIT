@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="blog-meta"><span>${formatDate(p.published_at)}</span></div>
             <h3>${escapeHtml(p.title)}</h3>
             <p>${escapeHtml(p.excerpt)}</p>
-            <a href="#" class="blog-link">Read Article ${arrowIcon}</a>
+            <a href="blog-post.html?slug=${encodeURIComponent(p.slug)}" class="blog-link">Read Article ${arrowIcon}</a>
           </div>
         </article>
       `).join('');
@@ -58,9 +58,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const items = await fetchJson('portfolio');
     if (items && items.length) {
       portfolioGrid.innerHTML = items.map((p) => {
-        const hasUrl = !!p.project_url;
+        const safeUrl = isSafeHttpUrl(p.project_url) ? p.project_url : '';
+        const hasUrl = !!safeUrl;
         const tag = hasUrl ? 'a' : 'div';
-        const linkAttrs = hasUrl ? `href="${escapeHtml(p.project_url)}" target="_blank" rel="noopener noreferrer"` : '';
+        const linkAttrs = hasUrl ? `href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer"` : '';
         const liveBadge = hasUrl
           ? '<span class="live-badge">Live Preview <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17L17 7M8 7h9v9"/></svg></span>'
           : '';
@@ -109,6 +110,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const div = document.createElement('div');
     div.textContent = str ?? '';
     return div.innerHTML;
+  }
+
+  function isSafeHttpUrl(value) {
+    if (!value) return false;
+    try {
+      const url = new URL(value, window.location.href);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (err) {
+      return false;
+    }
   }
 
   function formatDate(value) {
