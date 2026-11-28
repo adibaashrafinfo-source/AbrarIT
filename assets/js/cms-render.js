@@ -35,9 +35,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (blogGrid) {
     const posts = await fetchJson('blog');
     if (posts && posts.length) {
-      blogGrid.innerHTML = posts.map((p) => `
+      // Keep the real cover photos: reuse the static card's <picture> for any
+      // CMS post with the same title, so live data doesn't replace photos
+      // with plain gradient blocks.
+      const norm = (t) => (t || '').toLowerCase().replace(/&amp;/g, '&').replace(/[^a-z0-9]+/g, ' ').trim();
+      const staticCovers = {};
+      blogGrid.querySelectorAll('.blog-card').forEach((card) => {
+        const h = card.querySelector('h3');
+        const pic = card.querySelector('.blog-thumb picture, .blog-thumb img');
+        if (h && pic) staticCovers[norm(h.textContent)] = pic.outerHTML;
+      });
+      blogGrid.innerHTML = posts.map((p) => {
+        const cover = staticCovers[norm(p.title)] || '';
+        return `
         <article class="blog-card reveal">
           <div class="blog-thumb" style="background:linear-gradient(135deg,${p.cover_gradient_start},${p.cover_gradient_end})">
+            ${cover}
             <span>${escapeHtml(p.category)}</span>
           </div>
           <div class="blog-body">
@@ -46,8 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p>${escapeHtml(p.excerpt)}</p>
             <a href="blog-post.html?slug=${encodeURIComponent(p.slug)}" class="blog-link">Read Article ${arrowIcon}</a>
           </div>
-        </article>
-      `).join('');
+        </article>`;
+      }).join('');
       window.observeReveals(blogGrid);
     }
   }
