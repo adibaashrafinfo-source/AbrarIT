@@ -745,13 +745,36 @@ a.portfolio-card{ display:block; cursor:pointer; }
 }
 
 /* ---------- Mobile image fixes (prevent stretched / squished images) ---------- */
-/* <picture> wrappers inside fixed-ratio frames must fill the frame so the inner
-   img (height:100% + object-fit:cover) crops instead of stretching */
-.blog-thumb picture, .sd-visual picture, .story-visual .frame picture,
-.founder-photo picture, .team-photo picture, .portfolio-thumb picture{
-  width:100%; height:100%;
+/* Every image that sits in a fixed-ratio frame is pinned to the frame's four
+   edges and cropped with object-fit:cover. Uses top/right/bottom/left instead
+   of the newer `inset` shorthand, and a padding-top fallback where
+   aspect-ratio is unsupported, so older phone browsers (Samsung Internet,
+   in-app browsers, older Android WebView) never fall back to the HTML
+   width/height attributes and stretch the photo. */
+.blog-thumb, .sd-visual, .story-visual .frame, .founder-photo, .team-photo, .portfolio-thumb{
+  position:relative; overflow:hidden;
 }
-.blog-thumb picture, .story-visual .frame picture{ position:absolute; inset:0; }
+.blog-thumb > picture, .sd-visual > picture, .story-visual .frame > picture,
+.founder-photo > picture, .team-photo > picture, .portfolio-thumb > picture,
+.blog-thumb > img, .sd-visual > img, .story-visual .frame > img,
+.founder-photo > img, .team-photo > img, .portfolio-thumb > img{
+  position:absolute; top:0; right:0; bottom:0; left:0;
+  width:100%; height:100%; max-width:none; margin:0;
+}
+.blog-thumb img, .sd-visual img, .story-visual .frame img,
+.founder-photo img, .team-photo img, .portfolio-thumb img{
+  width:100%; height:100%; max-width:none; object-fit:cover; display:block;
+}
+.founder-photo img{ object-position:top center; }
+.blog-thumb > picture, .blog-thumb > img{ z-index:0; }
+.blog-thumb span{ z-index:1; }
+.team-photo img{ top:0; right:0; bottom:0; left:0; }
+@supports not (aspect-ratio: 1 / 1){
+  .blog-thumb{ height:0; padding-top:62.5%; }
+  .sd-visual{ height:0; padding-top:80%; }
+  .story-visual .frame{ height:0; padding-top:100%; }
+  .founder-photo{ height:0; padding-top:133.33%; }
+}
 @media (max-width: 640px){
   .brand-logo{ height:36px; }
   .header-inner{ gap:12px; }
