@@ -10,4 +10,4 @@
  * backend isn't connected yet, and the Blog/Portfolio/Services pages will
  * keep showing their built-in sample content.
  */
-window.CMS_API_BASE = null;
+window.CMS_API_BASE = "https://abrarit.com/cms";
