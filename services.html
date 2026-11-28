@@ -15,8 +15,9 @@
   .service-detail:last-of-type{ border-bottom:none; }
   .service-detail.rev{ direction:rtl; }
   .service-detail.rev > *{ direction:ltr; }
-  .sd-visual{ aspect-ratio:1/.8; border-radius:var(--radius-xl); background:var(--gradient-brand); position:relative; display:grid; place-items:center; color:#fff; overflow:hidden; }
+  .sd-visual{ aspect-ratio:1/.8; border-radius:var(--radius-xl); background:var(--color-bg-alt); position:relative; display:grid; place-items:center; color:#fff; overflow:hidden; }
   .sd-visual svg{ width:90px; height:90px; opacity:.9; }
+  .sd-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
   .sd-tiers{ display:flex; gap:10px; flex-wrap:wrap; margin:26px 0; }
   .sd-tiers span{ background:var(--color-bg-alt); border:1px solid var(--color-border); padding:9px 16px; border-radius:var(--radius-pill); font-size:.85rem; font-weight:700; color:var(--color-primary); }
   .sd-list{ margin:20px 0 30px; }
@@ -398,7 +399,7 @@
   <div class="container">
 
     <div class="service-detail" id="graphic-design">
-      <div class="sd-visual reveal-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1-.3-.3-.4-.6-.4-1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.4-4.5-9-10-9z"/></svg></div>
+      <div class="sd-visual reveal-left"><picture><source srcset="assets/img/service-graphic-design.webp" type="image/webp"><img src="assets/img/service-graphic-design.jpg" width="1024" height="1024" alt="Designer arranging printed brand identity cards and color swatches" loading="lazy"></picture></div>
       <div class="reveal-right">
         <div class="eyebrow">Branding &amp; Design</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Graphic Design</h2>
@@ -415,7 +416,7 @@
     </div>
 
     <div class="service-detail rev" id="digital-marketing">
-      <div class="sd-visual reveal-right" style="background:linear-gradient(135deg,#1A1715,#F15922)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 5-6"/></svg></div>
+      <div class="sd-visual reveal-right"><picture><source srcset="assets/img/service-digital-marketing.webp" type="image/webp"><img src="assets/img/service-digital-marketing.jpg" width="1024" height="1024" alt="Monitor showing a digital marketing campaign analytics dashboard" loading="lazy"></picture></div>
       <div class="reveal-left">
         <div class="eyebrow">Growth</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Digital Marketing</h2>
@@ -432,7 +433,7 @@
     </div>
 
     <div class="service-detail" id="web-design">
-      <div class="sd-visual reveal-left" style="background:linear-gradient(135deg,#F15922,#FF8A4D)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="sd-visual reveal-left"><picture><source srcset="assets/img/service-web-design.webp" type="image/webp"><img src="assets/img/service-web-design.jpg" width="1024" height="1024" alt="Laptop showing a modern website homepage design mockup" loading="lazy"></picture></div>
       <div class="reveal-right">
         <div class="eyebrow">Web</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Website Design &amp; Development</h2>
@@ -449,7 +450,7 @@
     </div>
 
     <div class="service-detail rev" id="software">
-      <div class="sd-visual reveal-right" style="background:linear-gradient(135deg,#C8401A,#FF8A4D)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+      <div class="sd-visual reveal-right"><picture><source srcset="assets/img/service-software.webp" type="image/webp"><img src="assets/img/service-software.jpg" width="1024" height="1024" alt="Developer's hands typing on a keyboard with code on screen" loading="lazy"></picture></div>
       <div class="reveal-left">
         <div class="eyebrow">Engineering</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Software Solutions</h2>
@@ -466,7 +467,7 @@
     </div>
 
     <div class="service-detail" id="motion">
-      <div class="sd-visual reveal-left" style="background:linear-gradient(135deg,#1A1715,#C8401A)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7l8-4 8 4-8 4-8-4zm0 5l8 4 8-4M4 17l8 4 8-4"/></svg></div>
+      <div class="sd-visual reveal-left"><picture><source srcset="assets/img/service-motion.webp" type="image/webp"><img src="assets/img/service-motion.jpg" width="1024" height="1024" alt="Monitor showing a motion graphics animation timeline" loading="lazy"></picture></div>
       <div class="reveal-right">
         <div class="eyebrow">Motion</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Motion Graphics</h2>
@@ -483,7 +484,7 @@
     </div>
 
     <div class="service-detail rev" id="video">
-      <div class="sd-visual reveal-right" style="background:linear-gradient(135deg,#8A3010,#1A1715)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></svg></div>
+      <div class="sd-visual reveal-right"><picture><source srcset="assets/img/service-video.webp" type="image/webp"><img src="assets/img/service-video.jpg" width="1024" height="1024" alt="Video editing workstation with a color grading timeline" loading="lazy"></picture></div>
       <div class="reveal-left">
         <div class="eyebrow">Production</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Video Editing</h2>
@@ -500,7 +501,7 @@
     </div>
 
     <div class="service-detail" id="content">
-      <div class="sd-visual reveal-left" style="background:linear-gradient(135deg,#FF8A4D,#C8401A)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>
+      <div class="sd-visual reveal-left"><picture><source srcset="assets/img/service-content.webp" type="image/webp"><img src="assets/img/service-content.jpg" width="1024" height="1024" alt="Hands typing on a laptop beside a notebook and pen" loading="lazy"></picture></div>
       <div class="reveal-right">
         <div class="eyebrow">Copy</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Content Writing</h2>
@@ -517,7 +518,7 @@
     </div>
 
     <div class="service-detail rev" id="email">
-      <div class="sd-visual reveal-right" style="background:linear-gradient(135deg,#3A2A22,#FF8A4D)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+      <div class="sd-visual reveal-right"><picture><source srcset="assets/img/service-email.webp" type="image/webp"><img src="assets/img/service-email.jpg" width="1024" height="1024" alt="Smartphone and laptop showing email newsletter and SMS marketing interfaces" loading="lazy"></picture></div>
       <div class="reveal-left">
         <div class="eyebrow">Automation</div>
         <h2 style="font-size:2rem;margin-bottom:16px;">Email &amp; SMS Marketing</h2>
