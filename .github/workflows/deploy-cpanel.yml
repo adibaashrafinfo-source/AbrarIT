@@ -1,0 +1,59 @@
+name: Deploy abrarit.com to cPanel (FTP)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cpanel-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # GitHub Secrets/Variables থেকে সার্ভারের জন্য cms/config.php বানানো (git-এ কখনো commit হয় না)
+      - name: Generate cms/config.php
+        env:
+          DB_NAME: ${{ vars.DB_NAME }}
+          DB_USER: ${{ vars.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          CMS_URL: ${{ vars.CMS_URL }}
+          ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+        run: |
+          php -r '
+            $q = fn($k) => var_export((string) getenv($k), true);
+            $secret = getenv("APP_SECRET") ?: bin2hex(random_bytes(32));
+            $out  = "<?php\n";
+            $out .= "define(\"DB_DSN\", " . var_export("mysql:host=localhost;dbname=" . getenv("DB_NAME") . ";charset=utf8mb4", true) . ");\n";
+            $out .= "define(\"DB_USER\", " . $q("DB_USER") . ");\n";
+            $out .= "define(\"DB_PASS\", " . $q("DB_PASS") . ");\n";
+            $out .= "define(\"CMS_URL\", " . $q("CMS_URL") . ");\n";
+            $out .= "define(\"ALLOWED_ORIGINS\", " . $q("ALLOWED_ORIGINS") . ");\n";
+            $out .= "define(\"APP_SECRET\", " . var_export($secret, true) . ");\n";
+            file_put_contents("cms/config.php", $out);
+          '
+          php -l cms/config.php
+
+      - name: Upload to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            *.md
+            cms/README.md
+            cms/config.sample.php
+            vercel.json

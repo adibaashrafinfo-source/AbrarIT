@@ -6,6 +6,25 @@
  */
 require_once __DIR__ . '/includes/bootstrap.php';
 
+// First run on a fresh database: create the tables from schema.sql
+// (so phpMyAdmin import isn't required). Runs only while admin_users is missing.
+$hasTables = (bool) db()->query("SHOW TABLES LIKE 'admin_users'")->fetchColumn();
+if (!$hasTables) {
+    $schemaFile = __DIR__ . '/schema.sql';
+    if (!is_readable($schemaFile)) {
+        http_response_code(500);
+        die('Database tables are missing and cms/schema.sql was not found. Upload schema.sql or import it in phpMyAdmin.');
+    }
+    $sql = (string) file_get_contents($schemaFile);
+    foreach (preg_split('/;\s*(\r?\n|$)/', $sql) as $statement) {
+        // Drop comment-only lines so empty chunks are skipped.
+        $statement = trim((string) preg_replace('/^\s*--.*$/m', '', $statement));
+        if ($statement !== '') {
+            db()->exec($statement);
+        }
+    }
+}
+
 if (any_admin_exists()) {
     http_response_code(403);
     die('An admin account already exists. For security this setup page now refuses to run. Please delete cms/setup.php from your server, and use login.php instead.');
