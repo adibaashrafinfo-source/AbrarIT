@@ -4,8 +4,9 @@
 .hero3d{
   position:relative;
   width:100%;
-  max-width:560px;
+  max-width:680px;
   margin:0 auto;
+  transform:translateX(96px);
   perspective:1200px;
 }
 .hero3d-float{
@@ -31,8 +32,8 @@
 }
 
 @media (max-width:1080px){
-  .hero3d{ max-width:440px; }
+  .hero3d{ max-width:480px; transform:translateX(0); }
 }
 @media (max-width:640px){
-  .hero3d{ max-width:360px; }
+  .hero3d{ max-width:380px; }
 }
