@@ -49,7 +49,7 @@ Date: 2026-11-27
 
 ## Decisions made on your behalf (reasonable defaults, flag if you'd rather change them)
 
-- **Canonical domain used**: `https://abrar-it.vercel.app` (your current live Vercel URL). All canonical tags, OG tags, and the sitemap point here. **When you buy a custom domain, these all need a find-and-replace** — ask me to do it and I will, in one pass.
+- **Canonical domain used**: `https://abrarit.com` (your current live Vercel URL). All canonical tags, OG tags, and the sitemap point here. **When you buy a custom domain, these all need a find-and-replace** — ask me to do it and I will, in one pass.
 - **URLs kept as `.html`** (e.g. `/about.html`, not `/about`). The site is deployed to both Vercel *and* GitHub Pages from the same files; GitHub Pages can't do server-side URL rewriting, so clean extensionless URLs would work on one host and break on the other. Keeping `.html` keeps both deployments identical and avoids duplicate-content risk between two different URL shapes.
 - **No fabricated social profile links** (`sameAs` in the Organization schema was left out) — the footer's social icons are still placeholder `#` links. Once you have real Facebook/Instagram/LinkedIn/YouTube URLs, add them to the footer and I'll add matching `sameAs` entries to the schema.
 

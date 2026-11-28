@@ -26,7 +26,7 @@ Agro, Shahada Properties, Career Bridge BD, BD Online Quran Academy.
 >
 > Quick favor — would you be open to adding a small "Website designed by
 > Abrar IT" credit in your site's footer, linking to
-> https://abrar-it.vercel.app? It's a tiny addition that helps us get
+> https://abrarit.com? It's a tiny addition that helps us get
 > discovered by other businesses like yours, and it's completely free —
 > just the credit link.
 >
@@ -39,7 +39,7 @@ Agro, Shahada Properties, Career Bridge BD, BD Online Quran Academy.
 **If they say yes**, send them this snippet to paste in their footer:
 
 ```html
-<a href="https://abrar-it.vercel.app" target="_blank" rel="noopener">Website designed by Abrar IT</a>
+<a href="https://abrarit.com" target="_blank" rel="noopener">Website designed by Abrar IT</a>
 ```
 
 Track responses in a simple list so you know who said yes, who said no,
@@ -65,7 +65,7 @@ Go to [business.google.com](https://business.google.com), click
 Graphic Design, Digital Marketing, Website Design, Software Development, Motion Graphics, Video Editing, Content Writing, Email & SMS Marketing
 
 **Phone:** +880 1719-686459
-**Website:** https://abrar-it.vercel.app (update once you have a custom domain)
+**Website:** https://abrarit.com (update once you have a custom domain)
 **Area served:** Dhaka, Bangladesh (and nationwide)
 
 **First Q&A to seed yourself** (GBP lets you post your own Q&As — this helps it look active and answers a real question early):
@@ -97,7 +97,7 @@ Abrar IT
 Dhaka, Bangladesh
 +880 1719-686459
 asrafulislam2000@gmail.com
-https://abrar-it.vercel.app
+https://abrarit.com
 ```
 
 **Where to submit** (free, high-value for a Bangladeshi agency):
@@ -149,7 +149,7 @@ For Bangladeshi tech, business or startup blogs:
 >
 > Best,
 > [Your name], Abrar IT
-> https://abrar-it.vercel.app
+> https://abrarit.com
 
 ---
 

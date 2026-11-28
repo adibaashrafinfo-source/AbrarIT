@@ -18,8 +18,8 @@ define('CMS_URL', 'https://yourdomain.com/cms');
 
 // The public website's origin(s) allowed to call api.php from the browser
 // (your Vercel/GitHub Pages URL). Comma-separate multiple origins.
-// Example: 'https://abrar-it.vercel.app,https://adibaashrafinfo-source.github.io'
-define('ALLOWED_ORIGINS', 'https://abrar-it.vercel.app');
+// Example: 'https://abrarit.com,https://adibaashrafinfo-source.github.io'
+define('ALLOWED_ORIGINS', 'https://abrarit.com');
 
 // Reserved for future use (e.g. signing tokens for a feature added later).
 // Not currently read by any code — PHP's own session handling (httponly,

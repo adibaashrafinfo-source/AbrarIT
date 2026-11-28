@@ -20,9 +20,16 @@ Options -Indexes
 
 # Security headers (admin panel pages only — api.php sets its own CORS
 # headers separately in code, and these don't interfere with that).
+# Set explicitly here (not relying on inheriting the root .htaccess) so
+# this folder is correctly hardened on its own regardless of how a given
+# host merges parent/child .htaccess files. The admin templates have no
+# inline <script> and only a couple of inline style="" attributes, so the
+# same CSP used at the site root is safe here too.
 # Wrapped in <IfModule> so a host without mod_headers isn't broken by it.
 <IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "DENY"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
 </IfModule>
