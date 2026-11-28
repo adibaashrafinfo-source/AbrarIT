@@ -3,9 +3,18 @@
 
 declare(strict_types=1);
 
+// Never show raw PHP errors/warnings to visitors; log them instead. Set at
+// the PHP level (not via .htaccess php_flag) so it works under any SAPI,
+// including PHP-FPM hosts where php_flag in .htaccess causes a 500 error.
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+error_reporting(E_ALL);
+
 ini_set('session.cookie_httponly', '1');
 ini_set('session.use_strict_mode', '1');
-if (($_SERVER['HTTPS'] ?? '') !== '' || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') {
+ini_set('session.cookie_samesite', 'Lax');
+$isHttps = ($_SERVER['HTTPS'] ?? '') !== '' || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
+if ($isHttps) {
     ini_set('session.cookie_secure', '1');
 }
 session_start();

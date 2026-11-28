@@ -21,7 +21,10 @@ define('CMS_URL', 'https://yourdomain.com/cms');
 // Example: 'https://abrar-it.vercel.app,https://adibaashrafinfo-source.github.io'
 define('ALLOWED_ORIGINS', 'https://abrar-it.vercel.app');
 
-// A random secret used to sign session cookies. Change this to any long
-// random string (e.g. generate one at https://randomkeygen.com/) and never
-// share it.
+// Reserved for future use (e.g. signing tokens for a feature added later).
+// Not currently read by any code — PHP's own session handling (httponly,
+// secure, SameSite, strict mode, ID regeneration on login) is what actually
+// protects admin sessions today, configured in includes/bootstrap.php.
+// Still: set this to a long random string (e.g. from https://randomkeygen.com/)
+// and never share it, so it's ready if a future feature needs it.
 define('APP_SECRET', 'change-this-to-a-long-random-string');

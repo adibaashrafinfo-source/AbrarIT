@@ -8,5 +8,21 @@
   Require all denied
 </Files>
 
-# Don't leak PHP errors/warnings to visitors in production.
-php_flag display_errors off
+# Don't let Apache list directory contents when there's no index file
+# (e.g. /cms/includes/, /cms/assets/) if a host has Options +Indexes on by default.
+Options -Indexes
+
+# display_errors is intentionally NOT set here via `php_flag`: on hosts that
+# run PHP-FPM (common on modern cPanel/CloudLinux "MultiPHP" setups), a
+# php_flag directive in .htaccess is invalid for that SAPI and causes a
+# 500 error for the whole app. It's set safely instead at the PHP level in
+# includes/bootstrap.php and api.php, which works under every SAPI.
+
+# Security headers (admin panel pages only — api.php sets its own CORS
+# headers separately in code, and these don't interfere with that).
+# Wrapped in <IfModule> so a host without mod_headers isn't broken by it.
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

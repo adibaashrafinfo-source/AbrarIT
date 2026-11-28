@@ -10,6 +10,11 @@
  */
 declare(strict_types=1);
 
+// Never leak raw PHP errors into the JSON response; log them instead.
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/helpers.php';
@@ -108,6 +113,14 @@ try {
 
         if ($errors) {
             json_out(['ok' => false, 'errors' => $errors], 422);
+        }
+
+        // Basic spam/abuse throttle: block a flood of submissions from the
+        // same email address in a short window (on top of the honeypot above).
+        $recentStmt = db()->prepare("SELECT COUNT(*) FROM contact_messages WHERE email = :email AND created_at > (NOW() - INTERVAL 10 MINUTE)");
+        $recentStmt->execute(['email' => $email]);
+        if ((int) $recentStmt->fetchColumn() >= 3) {
+            json_out(['ok' => false, 'errors' => ['Too many messages sent recently. Please try again later.']], 429);
         }
 
         $stmt = db()->prepare('INSERT INTO contact_messages (name, email, phone, service_interest, message)
