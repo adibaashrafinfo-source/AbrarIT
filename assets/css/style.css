@@ -215,11 +215,11 @@ h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; line-height:1.15;
 .hero h1 em{ font-style:normal; background:var(--gradient-brand); -webkit-background-clip:text; background-clip:text; color:transparent; position:relative; display:inline-block; }
 .hero p.lead{ font-size:1.15rem; color:var(--color-ink-soft); max-width:560px; margin-bottom:38px; }
 .hero-cta{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:56px; }
-.hero-stats{ display:flex; gap:40px; flex-wrap:wrap; }
-.hero-stats .stat{ position:relative; padding-left:16px; }
+.hero-stats{ display:flex; gap:20px; flex-wrap:nowrap; }
+.hero-stats .stat{ position:relative; padding-left:14px; min-width:0; }
 .hero-stats .stat::before{ content:''; position:absolute; left:0; top:4px; bottom:4px; width:3px; border-radius:2px; background:var(--gradient-brand); }
-.hero-stats .stat b{ display:block; font-family:var(--font-display); font-size:1.8rem; color:var(--color-primary); }
-.hero-stats .stat span{ font-size:.82rem; color:var(--color-ink-faint); font-weight:600; letter-spacing:.03em; }
+.hero-stats .stat b{ display:block; font-family:var(--font-display); font-size:clamp(1.3rem,1.8vw,1.8rem); color:var(--color-primary); white-space:nowrap; }
+.hero-stats .stat span{ font-size:.78rem; color:var(--color-ink-faint); font-weight:600; letter-spacing:.02em; white-space:nowrap; }
 
 .hero-visual{ position:relative; }
 .hero-orbit{
@@ -621,6 +621,7 @@ a.portfolio-card{ display:block; cursor:pointer; }
 .story-wrap{ grid-template-columns:1fr 1fr; align-items:center; gap:60px; }
 .story-visual{ position:relative; }
 .story-visual .frame{ aspect-ratio:1; border-radius:var(--radius-xl); background:var(--gradient-brand); position:relative; overflow:hidden; display:grid; place-items:center; color:#fff; }
+.story-visual .frame img{ width:100%; height:100%; object-fit:cover; display:block; }
 .story-content p{ color:var(--color-ink-soft); margin-bottom:18px; }
 
 /* ---------- Logos strip ---------- */
@@ -719,7 +720,8 @@ a.portfolio-card{ display:block; cursor:pointer; }
   .form-row{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; }
   .hero-cta{ flex-direction:column; align-items:stretch; }
-  .hero-stats{ gap:20px 28px; }
+  .hero-stats{ gap:20px 28px; flex-wrap:wrap; }
+  .hero-stats .stat b, .hero-stats .stat span{ white-space:normal; }
   .stats-band{ padding:44px 24px; }
   .founder-stats{ gap:20px; }
   .contact-form-card, .contact-info-card{ padding:30px 24px; }
